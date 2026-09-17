@@ -2,12 +2,9 @@
   "name": "livespeech-embedded-webclient",
   "version": "1.0.0",
   "description": "Embedded Web Client for LiveSpeech MLX TX",
-  "main": "embed.js",
+  "main": "server.js",
   "scripts": {
-    "start": "serve . -l $PORT"
-  },
-  "dependencies": {
-    "serve": "^14.2.4"
+    "start": "node server.js"
   },
   "engines": {
     "node": ">=18.0.0"
