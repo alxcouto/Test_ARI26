@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiveSpeech MLX Embedded Web Client — Test Landing Page</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #0b0f19;
+            color: #f1f5f9;
+            padding: 24px;
+            line-height: 1.6;
+        }
+        header {
+            max-width: 1400px;
+            margin: 0 auto 32px auto;
+            padding: 20px 24px;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+        }
+        header h1 {
+            font-size: 1.8rem;
+            color: #38bdf8;
+            margin-bottom: 8px;
+        }
+        header p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 32px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .session-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        }
+        .session-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .session-tag {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .tag-dark {
+            background: #1e293b;
+            color: #38bdf8;
+            border: 1px solid #38bdf8;
+        }
+        .tag-light {
+            background: #f8fafc;
+            color: #0284c7;
+            border: 1px solid #0284c7;
+        }
+        .livespeech-embed {
+            width: 100%;
+            height: 650px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+        }
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .livespeech-embed {
+                height: 550px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🎥 LiveSpeech MLX TX — Multi-Session Embed Test Landing Page</h1>
+        <p>This test page embeds 4 distinct live sessions using the <code>embed.js</code> container script. Each session runs in an isolated iframe with its own YouTube stream and Supabase Realtime synchronized captions.</p>
+    </header>
+
+    <main class="grid-container">
+
+        <!-- Session 1 -->
+        <section class="session-card">
+            <div class="session-title">
+                <span>📍 Session 1 (Main Hall)</span>
+                <span class="session-tag tag-dark">Dark Theme &bull; Key: session_1</span>
+            </div>
+            <div class="livespeech-embed" data-broadcast-id="session_1" data-theme="dark"></div>
+        </section>
+
+        <!-- Session Satellite 1 Topcon -->
+        <section class="session-card">
+            <div class="session-title">
+                <span>📍 Session Satellite 1 (Topcon)</span>
+                <span class="session-tag tag-light">Light Theme &bull; Key: session_satellite_1_topcon</span>
+            </div>
+            <div class="livespeech-embed" data-broadcast-id="session_satellite_1_topcon" data-theme="light"></div>
+        </section>
+
+        <!-- Session 2 -->
+        <section class="session-card">
+            <div class="session-title">
+                <span>📍 Session 2 (Hall B)</span>
+                <span class="session-tag tag-dark">Dark Theme &bull; Key: session_2</span>
+            </div>
+            <div class="livespeech-embed" data-broadcast-id="session_2" data-theme="dark"></div>
+        </section>
+
+        <!-- Session Satellite 2 ISR -->
+        <section class="session-card">
+            <div class="session-title">
+                <span>📍 Session Satellite 2 (ISR)</span>
+                <span class="session-tag tag-light">Light Theme &bull; Key: session_satellite_2_isr</span>
+            </div>
+            <div class="livespeech-embed" data-broadcast-id="session_satellite_2_isr" data-theme="light"></div>
+        </section>
+
+    </main>
+
+    <!-- Import embed.js helper script ONCE -->
+    <script src="../embed.js" async></script>
+</body>
+</html>

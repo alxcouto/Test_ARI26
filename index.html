@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiveSpeech MLX TX - Embedded Web Client</title>
+    <script>
+        // Automatically redirect root visits to Client view with session and theme parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const session = urlParams.get('session') || urlParams.get('broadcast_id') || urlParams.get('v') || 'session_1';
+        const theme = urlParams.get('theme') || 'light';
+        window.location.replace(`./Client/index.html?session=${encodeURIComponent(session)}&theme=${encodeURIComponent(theme)}`);
+    </script>
+</head>
+<body style="font-family: sans-serif; padding: 2rem; background: #0f172a; color: #fff;">
+    <h2>LiveSpeech MLX TX Web Client</h2>
+    <p>Redirecting to <a href="./Client/index.html?session=session_1&theme=light" style="color: #38bdf8;">Client Interface...</a></p>
+</body>
+</html>

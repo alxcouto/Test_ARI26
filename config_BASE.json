@@ -1,0 +1,29 @@
+[
+  {
+    "supabase": {
+      "project_url": "https://vypfflplczgtytysygpl.supabase.co",
+      "anon_key": ""
+    },
+    "broadcast_id": {
+      "session_1": "",
+      "session_satellite_1_topcon": "",
+      "session_2": "",
+      "session_satellite_2_isr": "",
+      "session_3": "",
+      "session_satellite_cso": "",
+      "session_4": "",
+      "session_satellite_4_biotech": "",
+      "session_5": "",
+      "session_satellite_ajl_ophthalmic": "",
+      "session_6": "",
+      "session_7": "",
+      "session_8": "",
+      "session_satellite_ophtec": "",
+      "session_9": "",
+      "session_satellite_alcon": "",
+      "session_10": "",
+      "session_11": "",
+      "session_satellite_johnson_johnson": ""
+    }
+  }
+]

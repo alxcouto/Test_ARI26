@@ -1,0 +1,12 @@
+{
+  "name": "livespeech-embedded-webclient",
+  "version": "1.0.0",
+  "description": "Embedded Web Client for LiveSpeech MLX TX",
+  "main": "embed.js",
+  "scripts": {
+    "start": "npx -y serve . -l $PORT"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

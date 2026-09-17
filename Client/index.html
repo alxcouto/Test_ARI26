@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiveSpeech MLX Embedded Player</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS Client v2 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Main Video & Subtitle Section -->
+        <main class="main-content">
+            <!-- 1. YouTube Player Area with Option B Custom Controls & Shields -->
+            <section class="player-section">
+                <div class="player-wrapper" id="player-wrapper">
+                    <div class="video-responsive">
+                        <div id="player"></div>
+                    </div>
+                    <!-- Option B Transparent Pointer Shields -->
+                    <div class="yt-shield-top" title="LiveSpeech Player"></div>
+                    <div class="yt-shield-bottom-right" title="LiveSpeech Player"></div>
+                    <!-- Autoplay Muted Warning Banner -->
+                    <div id="autoplay-banner" class="autoplay-banner hidden">
+                        <button id="btn-unmute-autoplay" class="btn btn-unmute-banner">
+                            🔊 Tap to Enable Audio
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Custom HTML5 Video Player Controls Bar (No Subtitle Sync Buttons) -->
+                <div class="custom-player-controls" id="custom-player-controls">
+                    <div class="ctrl-group left">
+                        <button id="btn-custom-play" class="btn btn-ctrl" title="Play / Pause Video">
+                            ▶ PLAY
+                        </button>
+                        <button id="btn-custom-mute" class="btn btn-ctrl" title="Mute / Unmute Video">
+                            🔊 MUTE
+                        </button>
+                        <input type="range" id="input-custom-volume" min="0" max="100" value="100" class="ctrl-slider" title="Volume Slider">
+                    </div>
+
+                    <div class="ctrl-group center">
+                        <span id="badge-live-status" class="badge-live">🔴 LIVE</span>
+                        <span id="display-player-time" class="time-display">00:00</span>
+                    </div>
+
+                    <div class="ctrl-group right">
+                        <button id="btn-custom-fs" class="btn btn-ctrl" title="Toggle Fullscreen">
+                            ⛶
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Protocol / Embed Error Warning Banner -->
+                <div id="protocol-warning" class="protocol-warning hidden">
+                    <span class="warning-icon">⚠️</span>
+                    <div class="warning-text">
+                        <strong>YouTube Embed Security Restriction (Error 153/150):</strong>
+                        <p>YouTube restricts embedding live videos when opening HTML directly via local <code>file://</code> protocol. For full embedded playback, run via a web server.</p>
+                    </div>
+                    <a id="link-direct-yt" href="#" target="_blank" class="btn-yt-direct">
+                        ▶ Watch on YouTube
+                    </a>
+                </div>
+            </section>
+
+            <!-- 2. Subtitle Controls & Status Area -->
+            <section class="controls-section">
+                <div class="control-buttons">
+                    <button id="btn-toggle-subtitles" class="btn btn-mode active" title="Toggle Subtitles Overlay">
+                        <span class="btn-icon">👁️</span> SUBTITLES: <span id="subtitles-state-text">ON</span>
+                    </button>
+                    <button id="btn-tts" class="btn btn-tts" title="Toggle Speech Synthesis reading (mutes YouTube audio)">
+                        <span class="btn-icon">🔊</span> READ: <span id="tts-state-text">OFF</span>
+                    </button>
+                </div>
+
+                <div class="language-status-group">
+                    <div class="language-selector-wrapper">
+                        <label for="select-language">Select Language:</label>
+                        <select id="select-language" class="language-dropdown">
+                            <option value="Spanish" selected>🇪🇸 Spanish (Español)</option>
+                            <option value="English">🇬🇧 English</option>
+                            <option value="French">🇫🇷 French (Français)</option>
+                            <option value="German">🇩🇪 German (Deutsch)</option>
+                            <option value="Italian">🇮🇹 Italian (Italiano)</option>
+                            <option value="Portuguese">🇵🇹 Portuguese (Português)</option>
+                        </select>
+                    </div>
+                    <div class="status-indicator-wrapper">
+                        <span id="info-tag" class="info-tag badge-original">Original</span>
+                        <span id="waiting-tag" class="waiting-tag">Waiting ...</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Subtitle Display Box (Clean 2-line display without flags inside box) -->
+            <section class="subtitle-section">
+                <div class="subtitle-box" id="subtitle-box">
+                    <div class="subtitle-text-wrapper">
+                        <div class="subtitle-text" id="subtitle-text">
+                            WAITING FOR LIVE SUBTITLES...
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- YouTube IFrame Player API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- Application Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
