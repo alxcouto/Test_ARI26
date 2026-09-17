@@ -1,7 +1,7 @@
 {
-  "name": "livespeech-embedded-webclient",
+  "name": "livespeech-test-session1",
   "version": "1.0.0",
-  "description": "Embedded Web Client for LiveSpeech MLX TX",
+  "description": "LiveSpeech MLX TX — Session 1 Light Mode Landing Page",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

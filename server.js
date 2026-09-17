@@ -45,5 +45,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-    console.log(`LiveSpeech Web Client running on port ${PORT}`);
+    console.log(`TestSession1 server running on port ${PORT}`);
 });

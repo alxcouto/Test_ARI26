@@ -1,19 +1,160 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveSpeech MLX TX - Embedded Web Client</title>
-    <script>
-        // Automatically redirect root visits to Client view with session and theme parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const session = urlParams.get('session') || urlParams.get('broadcast_id') || urlParams.get('v') || 'session_1';
-        const theme = urlParams.get('theme') || 'light';
-        window.location.replace(`./Client/index.html?session=${encodeURIComponent(session)}&theme=${encodeURIComponent(theme)}`);
-    </script>
+    <title>LiveSpeech MLX TX — Session 1 (Light Mode)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-color: #2563eb;
+            --border-color: #e2e8f0;
+            --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            --badge-bg: #dcfce7;
+            --badge-text: #15803d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        header {
+            margin-bottom: 24px;
+            background: var(--card-bg);
+            padding: 24px 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header-title h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .header-title p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #16a34a;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(22, 163, 74, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+            }
+        }
+
+        .player-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            width: 100%;
+            height: 720px;
+        }
+
+        .player-card iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        footer {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+    </style>
 </head>
-<body style="font-family: sans-serif; padding: 2rem; background: #0f172a; color: #fff;">
-    <h2>LiveSpeech MLX TX Web Client</h2>
-    <p>Redirecting to <a href="./Client/index.html?session=session_1&theme=light" style="color: #38bdf8;">Client Interface...</a></p>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-title">
+                <h1>LiveSpeech MLX TX — Session 1 Stream</h1>
+                <p>Real-time AI Subtitles & Multi-Language Speech Recognition (Light Theme)</p>
+            </div>
+            <div class="status-badge">
+                <span class="pulse-dot"></span>
+                <span>Session 1 Active</span>
+            </div>
+        </header>
+
+        <main class="player-card">
+            <iframe 
+                src="./Client/index.html?session=session_1&theme=light" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                title="LiveSpeech Player - Session 1">
+            </iframe>
+        </main>
+
+        <footer>
+            LiveSpeech MLX TX • Session 1 Stream (G5b1mC5-GEA) • Light Theme Active
+        </footer>
+    </div>
 </body>
 </html>

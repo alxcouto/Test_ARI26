@@ -5,25 +5,7 @@
       "anon_key": "sb_publishable_2fWGDIEvKLRw-ryDvp3LGA_0riZdvLC"
     },
     "broadcast_id": {
-      "session_1": "G5b1mC5-GEA",
-      "session_satellite_1_topcon": "1Mg11sWcvCA",
-      "session_2": "679t3yA1_Gw",
-      "session_satellite_2_isr": "MamngCWslYs",
-      "session_3": "",
-      "session_satellite_cso": "",
-      "session_4": "",
-      "session_satellite_4_biotech": "",
-      "session_5": "",
-      "session_satellite_ajl_ophthalmic": "",
-      "session_6": "",
-      "session_7": "",
-      "session_8": "",
-      "session_satellite_ophtec": "",
-      "session_9": "",
-      "session_satellite_alcon": "",
-      "session_10": "",
-      "session_11": "",
-      "session_satellite_johnson_johnson": ""
+      "session_1": "G5b1mC5-GEA"
     }
   }
 ]
