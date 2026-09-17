@@ -4,7 +4,10 @@
   "description": "Embedded Web Client for LiveSpeech MLX TX",
   "main": "embed.js",
   "scripts": {
-    "start": "npx -y serve . -l $PORT"
+    "start": "serve . -l $PORT"
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
   },
   "engines": {
     "node": ">=18.0.0"
