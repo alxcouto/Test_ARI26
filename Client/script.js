@@ -164,6 +164,7 @@
                     autoplay: 1,
                     controls: 0,
                     cc_load_policy: 0,
+                    cc_lang_pref: 'none',
                     iv_load_policy: 3,
                     modestbranding: 1,
                     rel: 0,
@@ -189,6 +190,11 @@
         try {
             if (player && typeof player.unloadModule === 'function') {
                 player.unloadModule('captions');
+                player.unloadModule('cc');
+            }
+            if (player && typeof player.setOption === 'function') {
+                player.setOption('captions', 'track', {});
+                player.setOption('cc', 'track', {});
             }
         } catch (e) {}
 
@@ -241,6 +247,16 @@
         if (!badgeLiveStatus || !btnCustomPlay) return;
 
         if (event.data === YT.PlayerState.PLAYING) {
+            try {
+                if (player && typeof player.unloadModule === 'function') {
+                    player.unloadModule('captions');
+                    player.unloadModule('cc');
+                }
+                if (player && typeof player.setOption === 'function') {
+                    player.setOption('captions', 'track', {});
+                    player.setOption('cc', 'track', {});
+                }
+            } catch (e) {}
             btnCustomPlay.textContent = '⏸ PAUSE';
             badgeLiveStatus.textContent = '🔴 LIVE';
             if (autoplayBanner && player && typeof player.isMuted === 'function' && !player.isMuted()) {
