@@ -15,35 +15,53 @@ const MIME_TYPES = {
     '.svg': 'image/svg+xml'
 };
 
+function serveFile(res, filePath) {
+    const ext = path.extname(filePath).toLowerCase();
+    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+
+    fs.readFile(filePath, (err, data) => {
+        if (err) {
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end('500 Internal Server Error');
+            return;
+        }
+        res.writeHead(200, {
+            'Content-Type': contentType,
+            'Access-Control-Allow-Origin': '*',
+            'Cache-Control': 'no-cache'
+        });
+        res.end(data);
+    });
+}
+
 const server = http.createServer((req, res) => {
     let reqUrl = req.url.split('?')[0];
     let safePath = path.normalize(reqUrl).replace(/^(\.\.[\/\\])+/, '');
-    let filePath = path.join(PUBLIC_DIR, safePath === '/' ? 'index.html' : safePath);
+    let targetPath = path.join(PUBLIC_DIR, safePath === '/' ? 'index.html' : safePath);
 
-    fs.stat(filePath, (err, stats) => {
-        if (err || !stats.isFile()) {
-            filePath = path.join(PUBLIC_DIR, 'index.html');
+    fs.stat(targetPath, (err, stats) => {
+        if (!err && stats.isFile()) {
+            return serveFile(res, targetPath);
+        }
+        
+        if (!err && stats.isDirectory()) {
+            let indexPath = path.join(targetPath, 'index.html');
+            if (fs.existsSync(indexPath)) {
+                return serveFile(res, indexPath);
+            }
         }
 
-        const ext = path.extname(filePath).toLowerCase();
-        const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+        // Fallback to root index.html
+        let rootIndex = path.join(PUBLIC_DIR, 'index.html');
+        if (fs.existsSync(rootIndex)) {
+            return serveFile(res, rootIndex);
+        }
 
-        fs.readFile(filePath, (err, data) => {
-            if (err) {
-                res.writeHead(500, { 'Content-Type': 'text/plain' });
-                res.end('500 Internal Server Error');
-                return;
-            }
-            res.writeHead(200, {
-                'Content-Type': contentType,
-                'Access-Control-Allow-Origin': '*',
-                'Cache-Control': 'no-cache'
-            });
-            res.end(data);
-        });
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('404 Not Found');
     });
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-    console.log(`TestSession1 server running on port ${PORT}`);
+    console.log(`LiveSpeech Web Client server running on port ${PORT}`);
 });

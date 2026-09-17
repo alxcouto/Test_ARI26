@@ -18,10 +18,23 @@
     // Strictly enforce theme via data-theme attribute
     document.documentElement.setAttribute('data-theme', themeParam);
 
-    // Dynamic Variables populated by config.json
-    let SUPABASE_URL = '';
-    let SUPABASE_ANON_KEY = '';
-    let resolvedBroadcastId = sessionParam;
+    // Dynamic Variables populated by config.json with fallback defaults
+    const DEFAULT_CONFIG_FALLBACK = {
+        supabase: {
+            project_url: "https://sjyrkjtsyymemgpounzw.supabase.co",
+            anon_key: "sb_publishable_2fWGDIEvKLRw-ryDvp3LGA_0riZdvLC"
+        },
+        broadcast_id: {
+            "session_1": "G5b1mC5-GEA",
+            "session_satellite_1_topcon": "1Mg11sWcvCA",
+            "session_2": "679t3yA1_Gw",
+            "session_satellite_2_isr": "MamngCWslYs"
+        }
+    };
+
+    let SUPABASE_URL = DEFAULT_CONFIG_FALLBACK.supabase.project_url;
+    let SUPABASE_ANON_KEY = DEFAULT_CONFIG_FALLBACK.supabase.anon_key;
+    let resolvedBroadcastId = DEFAULT_CONFIG_FALLBACK.broadcast_id[sessionParam] || sessionParam;
 
     // ==============================================================================
     // 2. Application State Variables
@@ -91,9 +104,15 @@
     // ==============================================================================
     async function loadConfigAndInit() {
         try {
-            let response = await fetch('../config.json').catch(() => null);
+            let response = await fetch('./config.json').catch(() => null);
             if (!response || !response.ok) {
-                response = await fetch('./config.json').catch(() => null);
+                response = await fetch('../config.json').catch(() => null);
+            }
+            if (!response || !response.ok) {
+                response = await fetch('/config.json').catch(() => null);
+            }
+            if (!response || !response.ok) {
+                response = await fetch('/TestSession1/config.json').catch(() => null);
             }
 
             if (response && response.ok) {
@@ -105,17 +124,12 @@
                     SUPABASE_ANON_KEY = mainConfig.supabase.anon_key || SUPABASE_ANON_KEY;
                 }
 
-                if (mainConfig.broadcast_id) {
-                    if (mainConfig.broadcast_id[sessionParam] && mainConfig.broadcast_id[sessionParam].trim().length > 0) {
-                        resolvedBroadcastId = mainConfig.broadcast_id[sessionParam].trim();
-                        console.log(`[Config Resolver] Resolved session '${sessionParam}' -> YouTube ID '${resolvedBroadcastId}'`);
-                    } else {
-                        resolvedBroadcastId = sessionParam;
-                        console.log(`[Config Resolver] Session key '${sessionParam}' not in config.json or empty; using raw ID: '${resolvedBroadcastId}'`);
-                    }
+                if (mainConfig.broadcast_id && mainConfig.broadcast_id[sessionParam] && mainConfig.broadcast_id[sessionParam].trim().length > 0) {
+                    resolvedBroadcastId = mainConfig.broadcast_id[sessionParam].trim();
+                    console.log(`[Config Resolver] Resolved session '${sessionParam}' -> YouTube ID '${resolvedBroadcastId}'`);
                 }
             } else {
-                console.warn('[Config Resolver] Could not load config.json. Using fallback parameters.');
+                console.warn('[Config Resolver] Using built-in default YouTube & Supabase config:', resolvedBroadcastId);
             }
         } catch (err) {
             console.error('[Config Resolver] Error parsing config.json:', err);
